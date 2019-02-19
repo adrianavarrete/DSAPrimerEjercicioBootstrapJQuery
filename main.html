@@ -7,15 +7,39 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script>
+$(document).ready(function(){
+	$("button").click(function(){
+		$("#tabla").html(""); //primero vacio la tabla existente
+		var usuario = $("#text").val();
+		$.ajax({
+				type:'GET',
+				url:'https://api.github.com/users/'+ usuario +'/repos',
+				dataType: 'json',
+				success: function(data){
+				
+					$.each(data, function(index, datos){
+																
+							$("#tabla").append("<tr><td>" + usuario + "</td><td>" + datos.name + "</td><td>" + datos.description + "</td><td>https://github.com/" + datos.full_name + "</td></tr>");
+								});
+					}	
+				
+
+				})	
+				
+				
+		});
+	});		
+
+</script>
 </head>
 <body>
 <div class="row">
   <div class="col-lg-2"></div>
   <div class="col-lg-8">
 	<div class="container">
-	<h1>Título</h1>
-	<p>prueba</p>	
-	</div>  
+	<h1>Ejercicio devolución tabla de repositorios de usuario de Github</h1>
+		</div>  
   </div>
   <div class="col-lg-2"></div>
 </div>
@@ -27,27 +51,14 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>Usuario</th>
+		<th>Nombre del repositorio</th>
+        <th>Descripción</th>
+        <th>URL</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+    <tbody id="tabla">
+     
     </tbody>
   </table>
 	
@@ -55,13 +66,17 @@
   <div class="col-lg-2"></div>
 </div>
 <div class="row">
-  <div class="col-lg-5"></div>
+  <div class="col-lg-4"></div>
   <div class="col-lg-2">
 	<div class="container">
-	<button type="button" class="btn btn-primary">Consultar</button>		
+	<input id="text" type="text" placeholder="Inserte nombre de usuario"></button>		
 	</div>  
   </div>
-  <div class="col-lg-5"></div>
+  <div class="col-lg-2">
+  	<div class="container">
+	<button id="btn" type="button" class="btn btn-primary">Consultar</button>		
+	</div> 
+  <div class="col-lg-4"></div>
 </div>
 </body>
 </html>
