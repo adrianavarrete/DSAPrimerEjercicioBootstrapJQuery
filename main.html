@@ -13,24 +13,17 @@ $(document).ready(function(){
 		$("#tabla").html(""); //primero vacio la tabla existente
 		var usuario = $("#text").val();
 		$.ajax({
-				type:'GET',
-				url:'https://api.github.com/users/'+ usuario +'/repos',
-				dataType: 'json',
-				success: function(data){
-				
-					$.each(data, function(index, datos){
-																
-							$("#tabla").append("<tr><td>" + usuario + "</td><td>" + datos.name + "</td><td>" + datos.description + "</td><td>https://github.com/" + datos.full_name + "</td></tr>");
-								});
-					}	
-				
-
-				})	
-				
-				
-		});
-	});		
-
+			type:'GET',
+			url:'https://api.github.com/users/'+ usuario +'/repos',
+			dataType: 'json',
+			success: function(data){				
+				$.each(data, function(index, datos){																
+					$("#tabla").append("<tr><td>" + usuario + "</td><td>" + datos.name + "</td><td>" + datos.description + "</td><td>https://github.com/" + datos.full_name + "</td></tr>");
+				});
+			}
+		})	
+	});
+});	
 </script>
 </head>
 <body>
@@ -57,11 +50,9 @@ $(document).ready(function(){
         <th>URL</th>
       </tr>
     </thead>
-    <tbody id="tabla">
-     
+    <tbody id="tabla">     
     </tbody>
-  </table>
-	
+  </table>	
   </div>
   <div class="col-lg-2"></div>
 </div>
