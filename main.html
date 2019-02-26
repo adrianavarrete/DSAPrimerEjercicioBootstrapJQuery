@@ -11,6 +11,7 @@
 $(document).ready(function(){
 	$("button").click(function(){
 		$("#tabla").html(""); //primero vacio la tabla existente
+		$("#tablacompleta").show()
 		var usuario = $("#text").val();
 		$.ajax({
 			type:'GET',
@@ -18,7 +19,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data){				
 				$.each(data, function(index, datos){																
-					$("#tabla").append("<tr><td>" + usuario + "</td><td>" + datos.name + "</td><td>" + datos.description + "</td><td>https://github.com/" + datos.full_name + "</td></tr>");
+					$("#tabla").append("<tr><td>" + usuario + "</td><td>" + datos.name + "</td><td>" + datos.description + "</td><td>" + datos.stargazers_count + "</td></tr>");
 				});
 			}
 		})	
@@ -41,13 +42,13 @@ $(document).ready(function(){
   <div class="col-lg-8">
 	  <h2>Repositorios</h2>
   <p>Devuelvo los repositorios del usuario solicitado:</p>            
-  <table class="table table-striped">
+  <table id="tablacompleta" class="table table-striped">
     <thead>
       <tr>
         <th>Usuario</th>
 		<th>Nombre del repositorio</th>
         <th>Descripción</th>
-        <th>URL</th>
+        <th>Seguidores</th>
       </tr>
     </thead>
     <tbody id="tabla">     
